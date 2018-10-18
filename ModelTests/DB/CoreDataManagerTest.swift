@@ -24,8 +24,7 @@ final class CoreDataManagerTest: XCTestCase {
     
     func test_saveSampleData_非同期でデータの保存テスト() {
         expectation = self.expectation(description: "データの保存テスト")
-        let testSamples = [Sample(title: "テストタイトル1", content: "テストコンテンツ1"),
-                           Sample(title: "テストタイトル2", content: "テストコンテンツ2")]
+        let testSamples = [Sample(title: "テストタイトル1", content: "テストコンテンツ1")]
         CoreDataManager.shered.saveSampleData(samples: testSamples,
                                               context: CoreDataManager.shered.subThreadContext(),
                                               delegate: self,

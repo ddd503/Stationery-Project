@@ -190,15 +190,12 @@ public final class CoreDataManager: NSObject {
                                                    idKey: "id"))
                 // midの新規作成に失敗した場合はリターン
                 guard newId > 0 else { return }
-                guard let entity = NSEntityDescription.entity(forEntityName: entityName,
-                                                              in: context) else {
-                                                                print("entity is nil")
-                                                                return
-                }
-                guard let saveData = NSManagedObject(entity: entity,
-                                                     insertInto: context) as? SaveData else {
-                                                        print("saveData is nil")
-                                                        return
+                
+                // 新規でEntityモデルを用意
+                guard let saveData = NSEntityDescription.insertNewObject(forEntityName: entityName,
+                                                                         into: context) as? SaveData else {
+                    print("not found SaveData")
+                    return
                 }
                 saveData.id = newId
                 saveData.title = $0.title
@@ -229,8 +226,7 @@ public final class CoreDataManager: NSObject {
         context.perform {
             // NSFetchedResultsControllerの生成
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
-            let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
-            fetchRequest.entity = entity
+            fetchRequest.entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
             /// ソートキーの指定。セクションが存在する場合セクションに対応した属性を最初に指定する(必須)（複数keyの指定は配列の要素を増やす）
             /// ascendind: true 昇順、false 降順
             let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: true)
