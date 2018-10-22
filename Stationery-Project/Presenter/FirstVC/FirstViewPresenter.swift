@@ -23,7 +23,7 @@ final class FirstViewPresenter: BasePresenter {
     }
     
     func requestSampleAPI() {
-        datasource.callApi(type: .sampleAPI())
+        datasource.callApi(type: .sampleAPI(parameters: [:]))
     }
     
     func fetchSaveData() {

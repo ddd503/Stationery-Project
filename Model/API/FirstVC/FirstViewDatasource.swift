@@ -44,7 +44,7 @@ public final class FirstViewDatasource {
         do {
             let decoder = JSONDecoder()
             switch type {
-            case .sampleAPI():
+            case .sampleAPI( _):
                 let samples = try decoder.decode([Sample].self, from: data)
                 // DBにレスポンスデータを保存
                 CoreDataManager.shered.saveSampleData(samples: samples, context: CoreDataManager.shered.subThreadContext(), delegate: nil, selector: nil)
